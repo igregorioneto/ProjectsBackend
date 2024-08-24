@@ -1,0 +1,24 @@
+networks:
+  library_net_dev:
+    driver: bridge
+
+services:
+  library_postgres_db:
+    container_name: library_postgres_db
+    image: postgres:latest
+    restart: unless-stopped
+    env_file: app.conf
+    environment: 
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      library_net_dev:
+        aliases:
+          - library_net
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/study/db/postgres/library_net_dev
+
+volumes:
+  db:
+    
