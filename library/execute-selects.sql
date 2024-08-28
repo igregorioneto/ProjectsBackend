@@ -30,3 +30,20 @@ where (
 	from "Loans" l 
 	where l.member_id = m.id
 ) > 2;
+
+-- Reviews selects
+-- Liste todas as avaliações feitas por um determinado membro, incluindo o título do livro e a avaliação.
+select r.id, r.rating , b.title , m."name" 
+from "Reviews" r 
+join "Books" b on r.book_id = b.id 
+join "Members" m on r.member_id = m.id 
+where r.member_id = 1
+group by r.id , r.rating, b.title, m."name";
+
+-- Calcule a média das avaliações de cada livro.
+select AVG(r.rating) as media, b.title 
+from "Reviews" r 
+join "Books" b ON r.book_id = b.id
+join "Members" m on r.member_id = m.id
+group by r.rating, b.title
+order by media DESC;

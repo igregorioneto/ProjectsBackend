@@ -21,3 +21,13 @@ call insert_loans(1, 1, '2024-01-15', '2024-02-15');
 call insert_loans(2, 2, '2024-02-20', '2024-03-20');
 call insert_loans(3, 3, '2024-03-10', '2024-04-10');
 call insert_loans(4, 4, '2024-04-05', '2024-05-05');
+
+-- Inserir avaliações
+call insert_review(1, 1, 5, 'Amazing book! A must-read for everyone.');
+call insert_review(2, 2, 4, 'Great start to an epic series, though a bit slow at times.');
+call insert_review(3, 3, 5, 'A timeless classic. Loved every part of it.');
+call insert_review(4, 4, 4, 'A masterpiece of science fiction, though the pace was a bit uneven.');
+call insert_review(1, 2, 4, 'Enjoyable, but not as great as the later books in the series.');
+call insert_review(3, 1, 5, 'Read it multiple times, and it never gets old.');
+call insert_review(2, 4, 5, 'Incredible world-building. Can’t wait to read the next book.');
+call insert_review(4, 3, 3, 'Interesting ideas, but some parts felt outdated.');

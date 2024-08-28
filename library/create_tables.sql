@@ -29,3 +29,15 @@ create table "Loans" (
 	foreign key (book_id) references "Books" (id),
 	foreign key (member_id) references "Members" (id)
 );
+
+-- Acrescentando tabela Reviews
+create table if not exists reviews(
+	id serial primary key,
+	book_id int not null,
+	member_id int not null,
+	rating int not null,
+	comment_member varchar(255),
+	review_date DATE default now(),
+	foreign key (book_id) references "Books" (id),
+	foreign key (member_id) references "Members" (id)
+);
