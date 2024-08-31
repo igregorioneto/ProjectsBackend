@@ -30,7 +30,7 @@ function callProcedure(client, procedureName, params, callback) {
     if (err) {
       callback(err, null);
     } else {
-      callback(null, res.rows);
+      callback(null, result.rows);
     }
   })
 }
