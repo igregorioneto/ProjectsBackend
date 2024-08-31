@@ -1,5 +1,6 @@
 const http = require('http');
 const url = require('url');
+const authorController = require('../../interface/controllers/authorControllers.js');
 
 /**
  * Servidor Http com as rotas
@@ -13,10 +14,18 @@ function createServer() {
 
     // Roteamento básico
     if (path === '/authors' && method === 'GET') {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ message: 'Conexão feita com sucesso!', success: true }));
+      authorController.getAuthors(req, res);
+    } else if (path === '/authors' && method === 'POST') {
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk.toString();
+      });
+      req.on('end', () => {
+        const author = JSON.parse(body);
+        authorController.insertAuthors(req, res, author.name, author.birthdate);
+      })
     }
-  })
+  });
 }
 
 module.exports = {

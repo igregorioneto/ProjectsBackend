@@ -1,8 +1,9 @@
 const path = require('path');
 const { loadEnv } = require('./infrastructure/config/loadEnv.js');
-const { createServer } = require('./infrastructure/webserver/httpServer.js');
 
 loadEnv(path.join(__dirname, '..', 'app.conf'));
+
+const { createServer } = require('./infrastructure/webserver/httpServer.js');
 
 const server = createServer();
 

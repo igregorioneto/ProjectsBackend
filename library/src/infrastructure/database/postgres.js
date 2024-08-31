@@ -6,10 +6,11 @@ const { Client } = require('pg');
  */
 function createConnection() {
   const client = new Client({
-    host: 'localhost',
-    user: 'your-user',
-    password: 'your-password',
-    database: 'your-database'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME
   });
 
   client.connect(err => {
@@ -23,6 +24,18 @@ function createConnection() {
   return client;
 }
 
+function callProcedure(client, procedureName, params, callback) {
+  const query = `CALL ${procedureName}(${params.map((_, i) => `$${i + 1}`).join(', ')})`;
+  client.query(query, params, (err, result) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, res.rows);
+    }
+  })
+}
+
 module.exports = {
-  createConnection
+  createConnection,
+  callProcedure
 }
