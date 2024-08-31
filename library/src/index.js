@@ -1,11 +1,12 @@
 const path = require('path');
 const { loadEnv } = require('./infrastructure/config/loadEnv.js');
+const { createServer } = require('./infrastructure/webserver/httpServer.js');
 
 loadEnv(path.join(__dirname, '..', 'app.conf'));
 
-console.log(process.env.PORT);
-console.log(process.env.DB_HOST);
-console.log(process.env.DB_USER);
-console.log(process.env.DB_PASS);
-console.log(process.env.DB_PASS);
-console.log(process.env.DB_PORT);
+const server = createServer();
+
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+  console.log('Server running on port ' + port);
+})
