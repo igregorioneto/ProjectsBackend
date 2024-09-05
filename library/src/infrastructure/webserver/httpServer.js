@@ -9,13 +9,17 @@ const bookController = require('../../interface/controllers/bookController.js');
 function createServer() {
   return http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
-    const path = parsedUrl.pathname;
+    const pathParsed = parsedUrl.pathname.split('/')
     const method = req.method;
+    const path = pathParsed[1];
 
     // Roteamento básico
-    if (path === '/authors' && method === 'GET') {
+    if (path === 'authors' && method === 'GET' && pathParsed.length === 2) {
       authorController.getAuthors(req, res);
-    } else if (path === '/authors' && method === 'POST') {
+    } else if (path === 'authors' && method === 'GET' && pathParsed.length === 3) {
+      const id = parseInt(pathParsed[2]);
+      authorController.getAuthorById(req, res, id);
+    } else if (path === 'authors' && method === 'POST' && pathParsed.length === 2) {
       let body = '';
       req.on('data', chunk => {
         body += chunk.toString();
@@ -24,9 +28,9 @@ function createServer() {
         const author = JSON.parse(body);
         authorController.insertAuthors(req, res, author.name, author.birthdate);
       })
-    } else if(path === '/books' && method === 'GET') {
+    } else if(path === 'books' && method === 'GET' && pathParsed.length === 2) {
       bookController.getBooks(req, res);
-    } else if (path === '/books' && method === 'POST') {
+    } else if (path === 'books' && method === 'POST' && pathParsed.length === 2) {
       let body = '';
       req.on('data', chunk => {
         body += chunk.toString();

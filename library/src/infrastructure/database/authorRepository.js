@@ -8,11 +8,19 @@ function getAuthors(callback) {
   });
 }
 
+function getAuthorById(id, callback) {
+  client.query(`SELECT * FROM "Authors" a WHERE a.id = ${id}`, (err, results) => {
+    if (err) return callback(err);
+    callback(null, results);
+  })
+}
+
 function insertAuthors(name, birthdate,callback) {
   db.callProcedure(client, 'insert_authors', [name, birthdate], callback);
 }
 
 module.exports = {
   getAuthors,
-  insertAuthors
+  insertAuthors,
+  getAuthorById
 }
