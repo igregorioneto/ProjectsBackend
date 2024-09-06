@@ -28,7 +28,7 @@ function createServer() {
         const author = JSON.parse(body);
         authorController.insertAuthors(req, res, author.name, author.birthdate);
       })
-    } else if(path === 'books' && method === 'GET' && pathParsed.length === 2) {
+    } else if (path === 'books' && method === 'GET' && pathParsed.length === 2) {
       bookController.getBooks(req, res);
     } else if (path === 'books' && method === 'POST' && pathParsed.length === 2) {
       let body = '';
@@ -36,7 +36,7 @@ function createServer() {
         body += chunk.toString();
       });
       req.on('end', () => {
-        const book = JSON.parse(body);
+        const book = JSON.parse(body);            
         bookController.insertBooks(req, res, book.title, book.author_id, book.published_year, book.genre)
       })
     }
